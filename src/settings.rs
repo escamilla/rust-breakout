@@ -9,9 +9,11 @@ pub const PADDLE_X_INITIAL: u32 = (((GAME_WIDTH as f64) * 0.5) as u32) - (PADDLE
 pub const PADDLE_Y: u32 = (((GAME_HEIGHT as f64) * 0.9) as u32) - (PADDLE_HEIGHT / 2);
 pub const PADDLE_X_DELTA: u32 = ((GAME_WIDTH as f64) * 0.01) as u32;
 
-pub const BALL_RADIUS: u32 = ((PADDLE_WIDTH as f64) * 0.15) as u32;
-pub const BALL_X_INITIAL: u32 = (GAME_WIDTH - BALL_RADIUS) / 2;
-pub const BALL_Y_INITIAL: u32 = (GAME_HEIGHT - BALL_RADIUS) / 2;
+pub const BALL_RADIUS: u32 = ((PADDLE_WIDTH as f64) * 0.1) as u32;
+pub const BALL_CX_INITIAL: i32 = (GAME_WIDTH / 2) as i32;
+pub const BALL_CY_INITIAL: i32 = (GAME_HEIGHT / 2) as i32;
+pub const BALL_DX: i32 = ((BALL_RADIUS as f64) * 0.25) as i32;
+pub const BALL_DY: i32 = ((BALL_RADIUS as f64) * 0.25) as i32;
 
 pub const BACKGROUND_COLOR: Color = [0.0, 0.0, 0.0, 1.0];
 pub const PADDLE_COLOR: Color = [0.0, 0.0, 1.0, 1.0];
