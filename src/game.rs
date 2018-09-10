@@ -2,23 +2,27 @@ extern crate piston_window;
 
 use piston_window::{clear, Context, G2d, Key};
 
+use ball::Ball;
 use paddle::{Direction, Paddle};
 use settings;
 
 pub struct Game {
     paddle: Paddle,
+    ball: Ball,
 }
 
 impl Game {
     pub fn new() -> Self {
         Game {
             paddle: Paddle::new(),
+            ball: Ball::new(),
         }
     }
 
     pub fn render(&self, context: &Context, g2d: &mut G2d) {
         clear(settings::BACKGROUND_COLOR, g2d);
         self.paddle.render(context, g2d);
+        self.ball.render(context, g2d);
     }
 
     pub fn update(&mut self) {

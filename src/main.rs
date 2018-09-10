@@ -4,6 +4,7 @@ use piston_window::{Button, PistonWindow, PressEvent, ReleaseEvent, WindowSettin
 
 use game::Game;
 
+mod ball;
 mod game;
 mod paddle;
 mod settings;
