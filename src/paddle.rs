@@ -69,4 +69,20 @@ impl Paddle {
     pub fn stop_moving(&mut self) {
         self.direction = None;
     }
+
+    pub fn x_min(&self) -> i32 {
+        self.x as i32
+    }
+
+    pub fn x_max(&self) -> i32 {
+        (self.x + self.width) as i32
+    }
+
+    pub fn y_min(&self) -> i32 {
+        self.y as i32
+    }
+
+    pub fn y_max(&self) -> i32 {
+        (self.y + self.height) as i32
+    }
 }

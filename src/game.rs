@@ -28,6 +28,7 @@ impl Game {
     pub fn update(&mut self) {
         self.paddle.update();
         self.ball.update();
+        self.ball.handle_paddle_collision(&self.paddle);
     }
 
     pub fn key_pressed(&mut self, key: Key) {

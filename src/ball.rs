@@ -1,5 +1,6 @@
 use piston_window::{ellipse, Context, G2d};
 
+use paddle::Paddle;
 use settings;
 
 pub struct Ball {
@@ -53,5 +54,29 @@ impl Ball {
             self.cy = (settings::GAME_HEIGHT as i32) - 1;
             self.dy *= -1;
         }
+    }
+
+    pub fn handle_paddle_collision(&mut self, paddle: &Paddle) {
+        if self.dy > 0 && self.is_touching_paddle(paddle) {
+            self.dy *= -1;
+        }
+    }
+
+    fn is_touching_paddle(&self, paddle: &Paddle) -> bool {
+        let closest_x = clamp(self.cx, paddle.x_min(), paddle.x_max());
+        let closest_y = clamp(self.cy, paddle.y_min(), paddle.y_max());
+        let distance_x = self.cx - closest_x;
+        let distance_y = self.cy - closest_y;
+        (distance_x * distance_x) + (distance_y * distance_y) < ((self.radius * self.radius) as i32)
+    }
+}
+
+fn clamp(x: i32, min: i32, max: i32) -> i32 {
+    if x < min {
+        min
+    } else if x > max {
+        max
+    } else {
+        x
     }
 }
