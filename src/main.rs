@@ -1,21 +1,23 @@
 extern crate piston_window;
 
-use piston_window::*;
+use piston_window::{PistonWindow, WindowSettings};
+
+use game::Game;
+
+mod game;
+mod paddle;
+mod settings;
 
 fn main() {
-    let mut window: PistonWindow = WindowSettings::new("Breakout", [640, 480])
-        .exit_on_esc(true)
-        .build()
-        .unwrap();
+    let mut window: PistonWindow =
+        WindowSettings::new("Breakout", [settings::GAME_WIDTH, settings::GAME_HEIGHT])
+            .exit_on_esc(true)
+            .build()
+            .unwrap();
+    let game = Game::new();
     while let Some(event) = window.next() {
         window.draw_2d(&event, |context, graphics| {
-            clear([0.0; 4], graphics);
-            rectangle(
-                [1.0, 0.0, 0.0, 1.0], // red
-                [0.0, 0.0, 100.0, 100.0],
-                context.transform,
-                graphics,
-            );
+            game.render(&context, graphics);
         });
     }
 }
