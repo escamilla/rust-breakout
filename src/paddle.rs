@@ -9,6 +9,12 @@ pub struct Paddle {
     y: u32,
     width: u32,
     height: u32,
+    direction: Option<Direction>,
+}
+
+pub enum Direction {
+    Left,
+    Right,
 }
 
 impl Paddle {
@@ -18,6 +24,7 @@ impl Paddle {
             y: settings::PADDLE_Y,
             width: settings::PADDLE_WIDTH,
             height: settings::PADDLE_HEIGHT,
+            direction: None,
         }
     }
 
@@ -33,5 +40,33 @@ impl Paddle {
             context.transform,
             g2d,
         );
+    }
+
+    pub fn update(&mut self) {
+        match self.direction {
+            Some(Direction::Left) => {
+                if settings::PADDLE_X_DELTA > self.x {
+                    self.x = 0;
+                } else {
+                    self.x -= settings::PADDLE_X_DELTA;
+                }
+            }
+            Some(Direction::Right) => {
+                if settings::PADDLE_X_DELTA > (settings::GAME_WIDTH - (self.x + self.width)) {
+                    self.x = settings::GAME_WIDTH - self.width;
+                } else {
+                    self.x += settings::PADDLE_X_DELTA;
+                }
+            }
+            _ => (),
+        }
+    }
+
+    pub fn start_moving(&mut self, direction: Direction) {
+        self.direction = Some(direction);
+    }
+
+    pub fn stop_moving(&mut self) {
+        self.direction = None;
     }
 }

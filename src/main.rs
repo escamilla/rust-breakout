@@ -1,6 +1,6 @@
 extern crate piston_window;
 
-use piston_window::{PistonWindow, WindowSettings};
+use piston_window::{Button, PistonWindow, PressEvent, ReleaseEvent, WindowSettings};
 
 use game::Game;
 
@@ -14,10 +14,19 @@ fn main() {
             .exit_on_esc(true)
             .build()
             .unwrap();
-    let game = Game::new();
+    let mut game = Game::new();
     while let Some(event) = window.next() {
+        if let Some(Button::Keyboard(key)) = event.press_args() {
+            game.key_pressed(key);
+        }
+
+        if let Some(Button::Keyboard(key)) = event.release_args() {
+            game.key_released(key);
+        }
+
         window.draw_2d(&event, |context, graphics| {
             game.render(&context, graphics);
+            game.update();
         });
     }
 }

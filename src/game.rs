@@ -1,21 +1,17 @@
 extern crate piston_window;
 
-use piston_window::{clear, Context, G2d};
+use piston_window::{clear, Context, G2d, Key};
 
-use paddle::Paddle;
+use paddle::{Direction, Paddle};
 use settings;
 
 pub struct Game {
-    width: u32,
-    height: u32,
     paddle: Paddle,
 }
 
 impl Game {
     pub fn new() -> Self {
         Game {
-            width: settings::GAME_WIDTH,
-            height: settings::GAME_HEIGHT,
             paddle: Paddle::new(),
         }
     }
@@ -23,5 +19,24 @@ impl Game {
     pub fn render(&self, context: &Context, g2d: &mut G2d) {
         clear(settings::BACKGROUND_COLOR, g2d);
         self.paddle.render(context, g2d);
+    }
+
+    pub fn update(&mut self) {
+        self.paddle.update();
+    }
+
+    pub fn key_pressed(&mut self, key: Key) {
+        match key {
+            Key::Left => self.paddle.start_moving(Direction::Left),
+            Key::Right => self.paddle.start_moving(Direction::Right),
+            _ => (),
+        }
+    }
+
+    pub fn key_released(&mut self, key: Key) {
+        match key {
+            Key::Left | Key::Right => self.paddle.stop_moving(),
+            _ => (),
+        }
     }
 }
