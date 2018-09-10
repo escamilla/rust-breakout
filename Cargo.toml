@@ -1,0 +1,7 @@
+[package]
+name = "breakout"
+version = "0.1.0"
+authors = ["Joshua Escamilla <joshua.escamilla@selu.edu>"]
+
+[dependencies]
+piston_window = "0.80.0"
